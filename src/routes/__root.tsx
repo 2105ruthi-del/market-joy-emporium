@@ -10,6 +10,8 @@ import {
 
 import appCss from "../styles.css?url";
 import { CartProvider } from "@/context/CartContext";
+import { WishlistProvider } from "@/context/WishlistContext";
+import { VendorProvider } from "@/context/VendorContext";
 import { Navbar } from "@/components/store/Navbar";
 import { Footer } from "@/components/store/Footer";
 
@@ -116,13 +118,17 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <CartProvider>
-        <Navbar />
-        <main className="min-h-screen">
-          <Outlet />
-        </main>
-        <Footer />
-      </CartProvider>
+      <VendorProvider>
+        <WishlistProvider>
+          <CartProvider>
+            <Navbar />
+            <main className="min-h-screen">
+              <Outlet />
+            </main>
+            <Footer />
+          </CartProvider>
+        </WishlistProvider>
+      </VendorProvider>
     </QueryClientProvider>
   );
 }

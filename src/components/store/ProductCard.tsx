@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { Star, ShoppingCart } from "lucide-react";
+import { Star, ShoppingCart, Heart } from "lucide-react";
 import type { Product } from "@/data/products";
 import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
 
 export function formatINR(n: number) {
   return "₹" + n.toLocaleString("en-IN");
@@ -9,6 +10,8 @@ export function formatINR(n: number) {
 
 export function ProductCard({ product }: { product: Product }) {
   const { add } = useCart();
+  const { has, toggle } = useWishlist();
+  const wished = has(product.id);
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-soft)] transition-all hover:shadow-[var(--shadow-card)] hover:-translate-y-1">
       <Link to="/product/$id" params={{ id: String(product.id) }} className="relative block aspect-square overflow-hidden bg-secondary/40">
@@ -18,6 +21,13 @@ export function ProductCard({ product }: { product: Product }) {
           {product.discount}
         </span>
       </Link>
+      <button
+        onClick={(e) => { e.preventDefault(); toggle(product.id); }}
+        aria-label="Wishlist"
+        className={`absolute top-3 right-3 z-10 grid place-items-center h-9 w-9 rounded-full backdrop-blur transition-all ${wished ? "bg-destructive text-destructive-foreground" : "bg-background/80 text-foreground hover:bg-background"}`}
+      >
+        <Heart className={`h-4 w-4 ${wished ? "fill-current" : ""}`} />
+      </button>
       <div className="flex flex-1 flex-col p-4">
         <p className="text-xs uppercase tracking-wide text-muted-foreground">{product.category}</p>
         <Link to="/product/$id" params={{ id: String(product.id) }}
