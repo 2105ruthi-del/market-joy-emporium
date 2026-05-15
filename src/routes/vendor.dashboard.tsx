@@ -1,13 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { TrendingUp, ShoppingBag, Package, IndianRupee, ArrowUpRight } from "lucide-react";
 import { useVendor } from "@/context/VendorContext";
+import { useOrders } from "@/context/OrdersContext";
 
 export const Route = createFileRoute("/vendor/dashboard")({
   component: Dashboard,
 });
 
 function Dashboard() {
-  const { vendor, products, orders } = useVendor();
+  const { vendor, products } = useVendor();
+  const { orders } = useOrders();
   const revenue = orders.filter((o) => o.status !== "Cancelled").reduce((s, o) => s + o.total, 0);
   const pending = orders.filter((o) => o.status === "Pending").length;
 
@@ -52,8 +54,8 @@ function Dashboard() {
             {orders.slice(0, 5).map((o) => (
               <div key={o.id} className="flex items-center justify-between rounded-lg border border-border p-3">
                 <div className="min-w-0">
-                  <div className="font-semibold text-sm truncate">{o.title}</div>
-                  <div className="text-xs text-muted-foreground">{o.id} • {o.customer}</div>
+                  <div className="font-semibold text-sm truncate">{o.items[0]?.title}</div>
+                  <div className="text-xs text-muted-foreground">{o.id} • {o.customerName}</div>
                 </div>
                 <div className="text-right shrink-0 ml-3">
                   <div className="font-bold text-sm">₹{o.total.toLocaleString("en-IN")}</div>
