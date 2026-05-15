@@ -6,7 +6,7 @@ import { useNotifications } from "@/context/NotificationsContext";
 import { statusBadgeClass } from "@/components/store/OrderTimeline";
 
 export const Route = createFileRoute("/vendor/orders")({
-  component: VendorOrders;
+  component: VendorOrders,
 });
 
 const STATUSES: OrderStatus[] = [...ORDER_FLOW, "Cancelled"];
