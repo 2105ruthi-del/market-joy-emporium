@@ -108,7 +108,7 @@ function Checkout() {
             {user.addresses.length > 0 && (
               <div className="mb-4 grid gap-2">
                 {user.addresses.map((a) => (
-                  <button key={a.id} type="button" onClick={() => setAddr(a)}
+                  <button key={a.id} type="button" onClick={() => setAddr({ fullName: a.fullName, phone: a.phone, line1: a.line1, line2: a.line2 ?? "", city: a.city, pincode: a.pincode })}
                     className="text-left rounded-xl border border-border p-3 text-sm hover:border-primary">
                     <div className="font-semibold">{a.label} • {a.fullName}</div>
                     <div className="text-xs text-muted-foreground">{a.line1}, {a.city} — {a.pincode}</div>
