@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { Star, ShoppingCart, Zap, Truck, RotateCcw, ShieldCheck, Minus, Plus } from "lucide-react";
+import { Star, ShoppingCart, Zap, Truck, RotateCcw, ShieldCheck, Minus, Plus, MessageCircle, Store } from "lucide-react";
 import { useState } from "react";
 import { getProduct, getRelated } from "@/data/products";
 import { useCart } from "@/context/CartContext";
@@ -31,6 +31,7 @@ function ProductPage() {
   const { add } = useCart();
   const navigate = useNavigate();
   const [qty, setQty] = useState(1);
+  const vendor = (product as any).vendor ?? "APJ Store";
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
@@ -88,6 +89,23 @@ function ProductPage() {
               className="inline-flex items-center gap-2 rounded-full bg-[image:var(--gradient-primary)] text-primary-foreground px-6 py-3 text-sm font-bold shadow-[var(--shadow-glow)] hover:opacity-95">
               <Zap className="h-4 w-4"/> Buy Now
             </button>
+            <button onClick={() => navigate({ to: "/chat/$vendor", params: { vendor } })}
+              className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-3 text-sm font-semibold hover:bg-secondary">
+              <MessageCircle className="h-4 w-4"/> Ask Vendor
+            </button>
+          </div>
+
+          <div className="mt-6 rounded-2xl border border-border bg-secondary/30 p-4 flex items-center gap-3">
+            <div className="h-10 w-10 rounded-full bg-[image:var(--gradient-primary)] grid place-items-center text-primary-foreground">
+              <Store className="h-5 w-5"/>
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-xs text-muted-foreground">Sold by</div>
+              <div className="font-bold text-sm">{vendor}</div>
+            </div>
+            <div className="text-xs inline-flex items-center gap-1 rounded-full bg-success/10 px-2 py-0.5" style={{color:"var(--success)"}}>
+              4.7 <Star className="h-3 w-3 fill-current"/>
+            </div>
           </div>
 
           <div className="mt-8 grid grid-cols-3 gap-3 text-xs">
