@@ -1,5 +1,5 @@
 import { createFileRoute, Link, Outlet, useRouterState, useNavigate } from "@tanstack/react-router";
-import { LayoutDashboard, Package, ShoppingBag, Settings, LogOut, Store, BarChart3, Leaf } from "lucide-react";
+import { LayoutDashboard, Package, ShoppingBag, Settings, LogOut, Store, BarChart3, Leaf, MessageCircle } from "lucide-react";
 import { useVendor } from "@/context/VendorContext";
 import { useState } from "react";
 
@@ -89,6 +89,7 @@ function VendorLayout() {
     { to: "/vendor/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { to: "/vendor/products", label: "Products", icon: Package },
     { to: "/vendor/orders", label: "Orders", icon: ShoppingBag },
+    { to: "/vendor/chat", label: "Messages", icon: MessageCircle },
     { to: "/vendor/settings", label: "Settings", icon: Settings },
   ];
 

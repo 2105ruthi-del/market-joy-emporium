@@ -15,6 +15,7 @@ import { Route as ShopRouteImport } from './routes/shop'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as MessagesRouteImport } from './routes/messages'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as DealsRouteImport } from './routes/deals'
 import { Route as CheckoutRouteImport } from './routes/checkout'
@@ -26,6 +27,7 @@ import { Route as VendorSettingsRouteImport } from './routes/vendor.settings'
 import { Route as VendorProductsRouteImport } from './routes/vendor.products'
 import { Route as VendorOrdersRouteImport } from './routes/vendor.orders'
 import { Route as VendorDashboardRouteImport } from './routes/vendor.dashboard'
+import { Route as VendorChatRouteImport } from './routes/vendor.chat'
 import { Route as ProductIdRouteImport } from './routes/product.$id'
 import { Route as OrderIdRouteImport } from './routes/order.$id'
 import { Route as ChatVendorRouteImport } from './routes/chat.$vendor'
@@ -58,6 +60,11 @@ const RegisterRoute = RegisterRouteImport.update({
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MessagesRoute = MessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -115,6 +122,11 @@ const VendorDashboardRoute = VendorDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => VendorRoute,
 } as any)
+const VendorChatRoute = VendorChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => VendorRoute,
+} as any)
 const ProductIdRoute = ProductIdRouteImport.update({
   id: '/product/$id',
   path: '/product/$id',
@@ -138,6 +150,7 @@ export interface FileRoutesByFullPath {
   '/checkout': typeof CheckoutRoute
   '/deals': typeof DealsRoute
   '/login': typeof LoginRoute
+  '/messages': typeof MessagesRoute
   '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
   '/search': typeof SearchRoute
@@ -147,6 +160,7 @@ export interface FileRoutesByFullPath {
   '/chat/$vendor': typeof ChatVendorRoute
   '/order/$id': typeof OrderIdRoute
   '/product/$id': typeof ProductIdRoute
+  '/vendor/chat': typeof VendorChatRoute
   '/vendor/dashboard': typeof VendorDashboardRoute
   '/vendor/orders': typeof VendorOrdersRoute
   '/vendor/products': typeof VendorProductsRoute
@@ -160,6 +174,7 @@ export interface FileRoutesByTo {
   '/checkout': typeof CheckoutRoute
   '/deals': typeof DealsRoute
   '/login': typeof LoginRoute
+  '/messages': typeof MessagesRoute
   '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
   '/search': typeof SearchRoute
@@ -168,6 +183,7 @@ export interface FileRoutesByTo {
   '/chat/$vendor': typeof ChatVendorRoute
   '/order/$id': typeof OrderIdRoute
   '/product/$id': typeof ProductIdRoute
+  '/vendor/chat': typeof VendorChatRoute
   '/vendor/dashboard': typeof VendorDashboardRoute
   '/vendor/orders': typeof VendorOrdersRoute
   '/vendor/products': typeof VendorProductsRoute
@@ -182,6 +198,7 @@ export interface FileRoutesById {
   '/checkout': typeof CheckoutRoute
   '/deals': typeof DealsRoute
   '/login': typeof LoginRoute
+  '/messages': typeof MessagesRoute
   '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
   '/search': typeof SearchRoute
@@ -191,6 +208,7 @@ export interface FileRoutesById {
   '/chat/$vendor': typeof ChatVendorRoute
   '/order/$id': typeof OrderIdRoute
   '/product/$id': typeof ProductIdRoute
+  '/vendor/chat': typeof VendorChatRoute
   '/vendor/dashboard': typeof VendorDashboardRoute
   '/vendor/orders': typeof VendorOrdersRoute
   '/vendor/products': typeof VendorProductsRoute
@@ -206,6 +224,7 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/deals'
     | '/login'
+    | '/messages'
     | '/profile'
     | '/register'
     | '/search'
@@ -215,6 +234,7 @@ export interface FileRouteTypes {
     | '/chat/$vendor'
     | '/order/$id'
     | '/product/$id'
+    | '/vendor/chat'
     | '/vendor/dashboard'
     | '/vendor/orders'
     | '/vendor/products'
@@ -228,6 +248,7 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/deals'
     | '/login'
+    | '/messages'
     | '/profile'
     | '/register'
     | '/search'
@@ -236,6 +257,7 @@ export interface FileRouteTypes {
     | '/chat/$vendor'
     | '/order/$id'
     | '/product/$id'
+    | '/vendor/chat'
     | '/vendor/dashboard'
     | '/vendor/orders'
     | '/vendor/products'
@@ -249,6 +271,7 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/deals'
     | '/login'
+    | '/messages'
     | '/profile'
     | '/register'
     | '/search'
@@ -258,6 +281,7 @@ export interface FileRouteTypes {
     | '/chat/$vendor'
     | '/order/$id'
     | '/product/$id'
+    | '/vendor/chat'
     | '/vendor/dashboard'
     | '/vendor/orders'
     | '/vendor/products'
@@ -272,6 +296,7 @@ export interface RootRouteChildren {
   CheckoutRoute: typeof CheckoutRoute
   DealsRoute: typeof DealsRoute
   LoginRoute: typeof LoginRoute
+  MessagesRoute: typeof MessagesRoute
   ProfileRoute: typeof ProfileRoute
   RegisterRoute: typeof RegisterRoute
   SearchRoute: typeof SearchRoute
@@ -325,6 +350,13 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/messages': {
+      id: '/messages'
+      path: '/messages'
+      fullPath: '/messages'
+      preLoaderRoute: typeof MessagesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -404,6 +436,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VendorDashboardRouteImport
       parentRoute: typeof VendorRoute
     }
+    '/vendor/chat': {
+      id: '/vendor/chat'
+      path: '/chat'
+      fullPath: '/vendor/chat'
+      preLoaderRoute: typeof VendorChatRouteImport
+      parentRoute: typeof VendorRoute
+    }
     '/product/$id': {
       id: '/product/$id'
       path: '/product/$id'
@@ -429,6 +468,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface VendorRouteChildren {
+  VendorChatRoute: typeof VendorChatRoute
   VendorDashboardRoute: typeof VendorDashboardRoute
   VendorOrdersRoute: typeof VendorOrdersRoute
   VendorProductsRoute: typeof VendorProductsRoute
@@ -437,6 +477,7 @@ interface VendorRouteChildren {
 }
 
 const VendorRouteChildren: VendorRouteChildren = {
+  VendorChatRoute: VendorChatRoute,
   VendorDashboardRoute: VendorDashboardRoute,
   VendorOrdersRoute: VendorOrdersRoute,
   VendorProductsRoute: VendorProductsRoute,
@@ -454,6 +495,7 @@ const rootRouteChildren: RootRouteChildren = {
   CheckoutRoute: CheckoutRoute,
   DealsRoute: DealsRoute,
   LoginRoute: LoginRoute,
+  MessagesRoute: MessagesRoute,
   ProfileRoute: ProfileRoute,
   RegisterRoute: RegisterRoute,
   SearchRoute: SearchRoute,
