@@ -28,6 +28,7 @@ import { Route as VendorOrdersRouteImport } from './routes/vendor.orders'
 import { Route as VendorDashboardRouteImport } from './routes/vendor.dashboard'
 import { Route as ProductIdRouteImport } from './routes/product.$id'
 import { Route as OrderIdRouteImport } from './routes/order.$id'
+import { Route as ChatVendorRouteImport } from './routes/chat.$vendor'
 
 const WishlistRoute = WishlistRouteImport.update({
   id: '/wishlist',
@@ -124,6 +125,11 @@ const OrderIdRoute = OrderIdRouteImport.update({
   path: '/order/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ChatVendorRoute = ChatVendorRouteImport.update({
+  id: '/chat/$vendor',
+  path: '/chat/$vendor',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -138,6 +144,7 @@ export interface FileRoutesByFullPath {
   '/shop': typeof ShopRoute
   '/vendor': typeof VendorRouteWithChildren
   '/wishlist': typeof WishlistRoute
+  '/chat/$vendor': typeof ChatVendorRoute
   '/order/$id': typeof OrderIdRoute
   '/product/$id': typeof ProductIdRoute
   '/vendor/dashboard': typeof VendorDashboardRoute
@@ -158,6 +165,7 @@ export interface FileRoutesByTo {
   '/search': typeof SearchRoute
   '/shop': typeof ShopRoute
   '/wishlist': typeof WishlistRoute
+  '/chat/$vendor': typeof ChatVendorRoute
   '/order/$id': typeof OrderIdRoute
   '/product/$id': typeof ProductIdRoute
   '/vendor/dashboard': typeof VendorDashboardRoute
@@ -180,6 +188,7 @@ export interface FileRoutesById {
   '/shop': typeof ShopRoute
   '/vendor': typeof VendorRouteWithChildren
   '/wishlist': typeof WishlistRoute
+  '/chat/$vendor': typeof ChatVendorRoute
   '/order/$id': typeof OrderIdRoute
   '/product/$id': typeof ProductIdRoute
   '/vendor/dashboard': typeof VendorDashboardRoute
@@ -203,6 +212,7 @@ export interface FileRouteTypes {
     | '/shop'
     | '/vendor'
     | '/wishlist'
+    | '/chat/$vendor'
     | '/order/$id'
     | '/product/$id'
     | '/vendor/dashboard'
@@ -223,6 +233,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/shop'
     | '/wishlist'
+    | '/chat/$vendor'
     | '/order/$id'
     | '/product/$id'
     | '/vendor/dashboard'
@@ -244,6 +255,7 @@ export interface FileRouteTypes {
     | '/shop'
     | '/vendor'
     | '/wishlist'
+    | '/chat/$vendor'
     | '/order/$id'
     | '/product/$id'
     | '/vendor/dashboard'
@@ -266,6 +278,7 @@ export interface RootRouteChildren {
   ShopRoute: typeof ShopRoute
   VendorRoute: typeof VendorRouteWithChildren
   WishlistRoute: typeof WishlistRoute
+  ChatVendorRoute: typeof ChatVendorRoute
   OrderIdRoute: typeof OrderIdRoute
   ProductIdRoute: typeof ProductIdRoute
 }
@@ -405,6 +418,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrderIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/chat/$vendor': {
+      id: '/chat/$vendor'
+      path: '/chat/$vendor'
+      fullPath: '/chat/$vendor'
+      preLoaderRoute: typeof ChatVendorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -440,6 +460,7 @@ const rootRouteChildren: RootRouteChildren = {
   ShopRoute: ShopRoute,
   VendorRoute: VendorRouteWithChildren,
   WishlistRoute: WishlistRoute,
+  ChatVendorRoute: ChatVendorRoute,
   OrderIdRoute: OrderIdRoute,
   ProductIdRoute: ProductIdRoute,
 }
