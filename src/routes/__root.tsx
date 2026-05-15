@@ -12,6 +12,10 @@ import appCss from "../styles.css?url";
 import { CartProvider } from "@/context/CartContext";
 import { WishlistProvider } from "@/context/WishlistContext";
 import { VendorProvider } from "@/context/VendorContext";
+import { AuthProvider } from "@/context/AuthContext";
+import { OrdersProvider } from "@/context/OrdersContext";
+import { ChatProvider } from "@/context/ChatContext";
+import { NotificationsProvider } from "@/context/NotificationsContext";
 import { Navbar } from "@/components/store/Navbar";
 import { Footer } from "@/components/store/Footer";
 
@@ -118,17 +122,25 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <VendorProvider>
-        <WishlistProvider>
-          <CartProvider>
-            <Navbar />
-            <main className="min-h-screen">
-              <Outlet />
-            </main>
-            <Footer />
-          </CartProvider>
-        </WishlistProvider>
-      </VendorProvider>
+      <AuthProvider>
+        <NotificationsProvider>
+          <OrdersProvider>
+            <ChatProvider>
+              <VendorProvider>
+                <WishlistProvider>
+                  <CartProvider>
+                    <Navbar />
+                    <main className="min-h-screen">
+                      <Outlet />
+                    </main>
+                    <Footer />
+                  </CartProvider>
+                </WishlistProvider>
+              </VendorProvider>
+            </ChatProvider>
+          </OrdersProvider>
+        </NotificationsProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
